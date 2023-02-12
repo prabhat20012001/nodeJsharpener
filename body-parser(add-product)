@@ -1,0 +1,28 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// Define the route for showing the form
+app.get('/add-product', (req, res) => {
+  res.send(`
+    <form method="POST" action="/add-product">
+      <label for="product-name">Product Name:</label>
+      <input type="text" id="product-name" name="productName">
+      <button type="submit">Submit</button>
+    </form>
+  `);
+});
+
+// Define the route for handling the form submission
+app.post('/add-product', (req, res) => {
+  const productName = req.body.productName;
+  console.log(`Product Name: ${productName}`);
+  res.send('Product added successfully');
+});
+
+// Start the server
+app.listen(3000, () => {
+  console.log('Server started on port 3000');
+});
